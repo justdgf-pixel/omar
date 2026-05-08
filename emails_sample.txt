@@ -1,0 +1,8 @@
+# Sample email list – one address per line
+# Lines starting with # are ignored
+
+user1@hotmail.com
+user2@outlook.com
+user3@live.com
+someone@hotmail.co.uk
+test.address@hotmail.fr
