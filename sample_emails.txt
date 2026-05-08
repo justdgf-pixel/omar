@@ -1,0 +1,10 @@
+# Sample email list for --mode smtp
+# Lines starting with # are ignored
+# One email per line
+
+user1@hotmail.com
+user2@outlook.com
+notavalidemail
+bad@gmail.com
+test.account@live.com
+another@msn.com

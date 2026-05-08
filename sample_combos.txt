@@ -1,0 +1,8 @@
+# Sample combo list for --mode login
+# Lines starting with # are ignored
+# Format: email:password (one per line)
+
+user1@hotmail.com:Password123
+user2@outlook.com:MySecretPass!
+test@live.com:hunter2
+another@msn.com:qwerty123
