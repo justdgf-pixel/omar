@@ -1,0 +1,18 @@
+# Sample Hotmail/Outlook email list for testing
+# Lines starting with # are ignored
+
+test.user1@hotmail.com
+someone.here@outlook.com
+another.person@live.com
+random_user_42@hotmail.co.uk
+my.email@hotmail.fr
+user@outlook.de
+hello.world@msn.com
+
+# Non-hotmail addresses (will be flagged as not_hotmail)
+user@gmail.com
+test@yahoo.com
+
+# Invalid format
+not-an-email
+@missing-local.com
