@@ -1,0 +1,13 @@
+# Sample email list for testing
+# Lines starting with # are ignored
+
+test.user@hotmail.com
+john.doe@outlook.com
+jane_smith@live.com
+invalid-email-no-domain
+@hotmail.com
+user@unknown-domain.xyz
+hello@hotmail.fr
+somebody@hotmail.co.uk
+random@msn.com
+bad@@double.com
