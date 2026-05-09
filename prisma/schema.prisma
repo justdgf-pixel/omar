@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  name           String
+  passwordHash   String
+  avatar         String?
+  phone          String?
+  wilaya         String?
+  role           String    @default("buyer")
+  bio            String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  products       Product[]
+  orders         Order[]
+  reviews        Review[]
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  nameFr      String
+  nameAr      String
+  slug        String    @unique
+  icon        String?
+  description String?
+  createdAt   DateTime  @default(now())
+
+  products    Product[]
+}
+
+model Product {
+  id            String    @id @default(uuid())
+  title         String
+  titleFr       String?
+  titleAr       String?
+  description   String
+  descriptionFr String?
+  descriptionAr String?
+  price         Float
+  comparePrice  Float?
+  currency      String    @default("DZD")
+  images        String    @default("[]")
+  fileUrl       String
+  fileSize      String?
+  fileType      String?
+  category      Category  @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  seller        User      @relation(fields: [sellerId], references: [id])
+  sellerId      String
+  featured      Boolean   @default(false)
+  status        String    @default("active")
+  downloads     Int       @default(0)
+  rating        Float     @default(0)
+  reviewCount   Int       @default(0)
+  tags          String    @default("[]")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  orderItems    OrderItem[]
+  reviews       Review[]
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  buyer         User        @relation(fields: [buyerId], references: [id])
+  buyerId       String
+  totalAmount   Float
+  currency      String      @default("DZD")
+  status        String      @default("pending")
+  paymentMethod String
+  paymentRef    String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id          String   @id @default(uuid())
+  order       Order    @relation(fields: [orderId], references: [id])
+  orderId     String
+  product     Product  @relation(fields: [productId], references: [id])
+  productId   String
+  price       Float
+  downloaded  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+}

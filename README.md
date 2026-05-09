@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DigiDZ - Digital Marketplace for Algeria 🇩🇿
+
+A full-stack digital products marketplace built specifically for the Algerian market. Buy and sell e-books, courses, templates, software, and more using local payment methods.
+
+## Features
+
+- **Product Catalog** - Browse digital products by category with search and filters
+- **Seller Dashboard** - Upload products, manage listings, track sales and revenue
+- **Buyer Dashboard** - View orders, download purchased products
+- **Shopping Cart** - Add/remove products with persistent cart state
+- **Algeria Payment Methods** - CCP, BaridiMob, and Edahabia card support
+- **All 58 Wilayas** - Complete Algerian wilaya coverage for user profiles
+- **PWA Support** - Install as a mobile app on any device
+- **Modern UI** - Clean, responsive design with Tailwind CSS
+- **DZD Currency** - All prices in Algerian Dinar
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: SQLite with Prisma ORM
+- **State Management**: Zustand
+- **Icons**: Lucide React
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- npm
+
+### Installation
 
 ```bash
+npm install
+npx prisma db push
+npx tsx prisma/seed.ts
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Demo Accounts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Role   | Email              | Password    |
+|--------|--------------------|-------------|
+| Seller | karim@digidz.com   | password123 |
+| Seller | amina@digidz.com   | password123 |
+| Seller | yacine@digidz.com  | password123 |
+| Buyer  | buyer@digidz.com   | password123 |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── api/            # API routes (auth, products, orders, categories)
+│   ├── auth/           # Sign in / Sign up pages
+│   ├── cart/           # Shopping cart page
+│   ├── checkout/       # Checkout with payment selection
+│   ├── dashboard/
+│   │   ├── buyer/      # Buyer dashboard (orders, downloads)
+│   │   └── seller/     # Seller dashboard (products, sales, orders)
+│   ├── products/       # Product listing and detail pages
+│   ├── layout.tsx      # Root layout with nav and footer
+│   └── page.tsx        # Landing page
+├── components/
+│   ├── layout/         # Navbar, Footer
+│   └── ui/             # ProductCard, HeroSection, CategoryGrid, etc.
+├── lib/                # Prisma client, utils, auth helpers
+└── store/              # Zustand cart store
+prisma/
+├── schema.prisma       # Database schema
+└── seed.ts             # Sample data seeder
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Payment Methods
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+DigiDZ supports Algeria-specific payment methods:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **CCP (Compte Postal)** - Algeria Post checking account transfers
+- **BaridiMob** - Mobile payment via Algeria Post
+- **Edahabia Card** - Algeria Post's electronic payment card
