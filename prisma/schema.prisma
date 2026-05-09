@@ -1,0 +1,114 @@
+// Souk Digital — Algerian digital products marketplace
+// Uses SQLite for local dev. Switch `provider` to "postgresql" for production.
+// Note: SQLite doesn't support enums, so we model them as strings + app-level constants.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String
+  // "CUSTOMER" | "SELLER" | "ADMIN"
+  role          String    @default("CUSTOMER")
+  phone         String?
+  wilaya        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  products      Product[] @relation("SellerProducts")
+  orders        Order[]
+  payouts       Payout[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  nameAr    String
+  nameFr    String
+  nameEn    String
+  icon      String?
+  products  Product[]
+}
+
+model Product {
+  id            String         @id @default(cuid())
+  slug          String         @unique
+  titleAr       String
+  titleFr       String
+  titleEn       String
+  descriptionAr String
+  descriptionFr String
+  descriptionEn String
+  priceDzd      Int
+  coverImage    String?
+  fileKey       String?
+  fileName      String?
+  fileSizeBytes Int?
+  // "DRAFT" | "PENDING_REVIEW" | "PUBLISHED" | "REJECTED"
+  status        String         @default("PENDING_REVIEW")
+  featured      Boolean        @default(false)
+  sellerId      String
+  seller        User           @relation("SellerProducts", fields: [sellerId], references: [id])
+  categoryId    String?
+  category      Category?      @relation(fields: [categoryId], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  orderItems    OrderItem[]
+
+  @@index([status])
+  @@index([categoryId])
+  @@index([sellerId])
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  number          String        @unique
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  // "PENDING" | "PAID" | "FAILED" | "REFUNDED" | "CANCELLED"
+  status          String        @default("PENDING")
+  totalDzd        Int
+  // "CHARGILY_EDAHABIA" | "CHARGILY_CIB" | "BANK_TRANSFER" | "BARIDIMOB" | "MANUAL"
+  paymentMethod   String        @default("CHARGILY_EDAHABIA")
+  chargilyId      String?
+  paidAt          DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  items           OrderItem[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  unitDzd     Int
+  quantity    Int      @default(1)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Payout {
+  id          String   @id @default(cuid())
+  sellerId    String
+  seller      User     @relation(fields: [sellerId], references: [id])
+  amountDzd   Int
+  note        String?
+  paidAt      DateTime?
+  createdAt   DateTime @default(now())
+}
