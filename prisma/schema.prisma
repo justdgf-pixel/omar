@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("customer") // customer | admin
+  phone        String?
+  wilaya       String?  // Algerian state/province
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  orders       Order[]
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  nameFr      String
+  nameAr      String
+  slug        String    @unique
+  description String?
+  image       String?
+  createdAt   DateTime  @default(now())
+  products    Product[]
+}
+
+model Product {
+  id            String      @id @default(uuid())
+  name          String
+  nameFr        String
+  nameAr        String
+  slug          String      @unique
+  description   String
+  descriptionFr String
+  descriptionAr String
+  price         Float       // Price in DZD
+  comparePrice  Float?      // Original price for showing discount
+  image         String?
+  images        String?     // JSON array of image URLs
+  categoryId    String
+  category      Category    @relation(fields: [categoryId], references: [id])
+  fileUrl       String      // Path to digital file
+  fileSize      String?     // Human readable file size
+  fileType      String?     // e.g., PDF, ZIP, MP4
+  downloadLimit Int         @default(5)
+  featured      Boolean     @default(false)
+  published     Boolean     @default(true)
+  salesCount    Int         @default(0)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  orderItems    OrderItem[]
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  orderNumber   String      @unique
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  totalAmount   Float       // Total in DZD
+  status        String      @default("pending") // pending | confirmed | completed | cancelled
+  paymentMethod String      // ccp | baridimob | edahabia | bank_transfer
+  paymentProof  String?     // Image/receipt upload path
+  customerName  String
+  customerEmail String
+  customerPhone String?
+  customerWilaya String?
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  items         OrderItem[]
+  downloads     Download[]
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  price     Float
+  quantity  Int     @default(1)
+}
+
+model Download {
+  id          String   @id @default(uuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id])
+  token       String   @unique
+  expiresAt   DateTime
+  downloadCount Int    @default(0)
+  maxDownloads  Int    @default(5)
+  createdAt   DateTime @default(now())
+}
+
+model SiteSettings {
+  id              String @id @default("settings")
+  siteName        String @default("DigiStore DZ")
+  siteDescription String @default("Your #1 marketplace for digital products in Algeria")
+  ccpNumber       String @default("")
+  ccpKey          String @default("")
+  baridimobNumber String @default("")
+  edahabiaNumber  String @default("")
+  bankDetails     String @default("")
+  contactEmail    String @default("")
+  contactPhone    String @default("")
+  whatsappNumber  String @default("")
+  socialFacebook  String @default("")
+  socialInstagram String @default("")
+}
