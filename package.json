@@ -1,0 +1,12 @@
+{
+  "name": "digisouk-dz",
+  "private": true,
+  "scripts": {
+    "dev:web": "npm --prefix apps/web run dev",
+    "build:web": "npm --prefix apps/web run build",
+    "lint:web": "npm --prefix apps/web run lint",
+    "start:mobile": "npm --prefix apps/mobile run start",
+    "typecheck:mobile": "npm --prefix apps/mobile exec tsc --noEmit",
+    "verify": "npm run lint:web && npm run build:web && npm run typecheck:mobile"
+  }
+}
