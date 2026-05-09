@@ -1,0 +1,90 @@
+// Souk Digital — Prisma schema
+// SQLite for dev. Swap to PostgreSQL by changing the datasource provider/URL.
+// Note: SQLite does not support native enums. We store enum-like values as
+// strings and validate them at the TypeScript layer (see lib/enums.ts).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  // Role: CUSTOMER | SELLER | ADMIN
+  role      String   @default("CUSTOMER")
+  createdAt DateTime @default(now())
+
+  products Product[] @relation("seller_products")
+  orders   Order[]   @relation("buyer_orders")
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  slug     String    @unique
+  nameAr   String
+  nameFr   String
+  nameEn   String
+  products Product[]
+}
+
+model Product {
+  id           String    @id @default(cuid())
+  slug         String    @unique
+  titleAr      String
+  titleFr      String
+  titleEn      String
+  descriptionAr String
+  descriptionFr String
+  descriptionEn String
+  // price in DZD, stored in centimes (1 DZD = 100 centimes) for safety
+  priceCents   Int
+  coverUrl     String
+  fileUrl      String    // path under /private-files relative to project root
+  fileName     String
+  fileSize     Int       @default(0)
+  published    Boolean   @default(true)
+  featured     Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+
+  sellerId   String
+  seller     User      @relation("seller_products", fields: [sellerId], references: [id])
+  categoryId String
+  category   Category  @relation(fields: [categoryId], references: [id])
+  orderItems OrderItem[]
+}
+
+model Order {
+  id          String        @id @default(cuid())
+  number      String        @unique // human-friendly order number
+  buyerId     String
+  buyer       User          @relation("buyer_orders", fields: [buyerId], references: [id])
+  // Status: PENDING_PAYMENT | AWAITING_REVIEW | PAID | CANCELLED | REFUNDED
+  status      String        @default("PENDING_PAYMENT")
+  totalCents  Int
+  // Method: CCP | BARIDIMOB | CIB_EDAHABIA | BANK_TRANSFER
+  method      String
+  reference   String?
+  notes       String?
+  createdAt   DateTime      @default(now())
+  paidAt      DateTime?
+
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id         String  @id @default(cuid())
+  orderId    String
+  productId  String
+  priceCents Int
+  titleSnapshot String
+
+  order      Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product    Product @relation(fields: [productId], references: [id])
+}

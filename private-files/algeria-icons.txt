@@ -1,0 +1,1 @@
+Pretend SVG bundle. Replace with real assets.

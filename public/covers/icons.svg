@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#fef2f3"/>
+  <g fill="none" stroke="#d72638" stroke-width="3">
+    <rect x="40"  y="50"  width="60" height="60" rx="8"/>
+    <circle cx="180" cy="80" r="30"/>
+    <polygon points="270,50 310,50 290,110"/>
+    <path d="M40 160 h60 v60 h-60 z"/>
+    <path d="M150 220 l30 -60 l30 60 z"/>
+    <path d="M270 160 q30 0 30 30 t-30 30 t-30 -30 t30 -30"/>
+  </g>
+  <text x="32" y="280" fill="#a31c2a" font-family="ui-sans-serif" font-size="20" font-weight="700">Icon Pack</text>
+</svg>
