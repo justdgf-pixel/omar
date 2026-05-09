@@ -1,0 +1,126 @@
+// Souqami — Algerian digital products marketplace
+// Use SQLite locally; swap `provider = "postgresql"` and update DATABASE_URL for production.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite doesn't support real enums, so the following are stored as strings.
+// Allowed values are validated at the application layer (see src/lib/types.ts).
+//   Role          : CUSTOMER | SELLER | ADMIN
+//   OrderStatus   : PENDING_PAYMENT | PAID | REJECTED | CANCELLED | REFUNDED
+//   PaymentMethod : CIB | EDAHABIA | BARIDIMOB | CCP_TRANSFER
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String
+  role          String    @default("CUSTOMER")
+  phone         String?
+  wilaya        String?   // Algerian province (1..58)
+  createdAt     DateTime  @default(now())
+
+  products      Product[] @relation("SellerProducts")
+  orders        Order[]   @relation("CustomerOrders")
+  payouts       Payout[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  nameAr    String
+  nameFr    String
+  nameEn    String
+  icon      String?   // emoji or icon name, optional
+  products  Product[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  titleAr     String
+  titleFr     String
+  titleEn     String
+  descAr      String
+  descFr      String
+  descEn      String
+  // Price stored in centimes (1 DZD = 100 centimes) to avoid float math.
+  priceCentimes Int
+  coverUrl    String?  // public preview image
+  fileKey     String   // path under UPLOAD_DIR or S3 key
+  fileName    String
+  fileSize    Int      // bytes
+  fileMime    String
+  published   Boolean  @default(false)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  sellerId    String
+  seller      User     @relation("SellerProducts", fields: [sellerId], references: [id])
+
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  // Short human-friendly reference shown to buyers / used for bank-transfer memo.
+  reference       String   @unique
+  status          String   @default("PENDING_PAYMENT")
+  paymentMethod   String
+  totalCentimes   Int
+  customerId      String
+  customer        User          @relation("CustomerOrders", fields: [customerId], references: [id])
+  items           OrderItem[]
+  // Buyer-uploaded proof for BaridiMob / CCP transfers.
+  proofUrl        String?
+  proofNote       String?
+  // SATIM transaction id once we receive a card-payment callback.
+  satimOrderId    String?
+  paidAt          DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  downloads       DownloadToken[]
+}
+
+model OrderItem {
+  id            String   @id @default(cuid())
+  orderId       String
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id])
+  // Snapshot of price/title at purchase time.
+  titleSnapshot String
+  priceCentimes Int
+}
+
+model DownloadToken {
+  id           String   @id @default(cuid())
+  token        String   @unique
+  orderId      String
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId    String
+  expiresAt    DateTime
+  remainingUses Int     @default(5)
+  createdAt    DateTime @default(now())
+}
+
+model Payout {
+  id              String   @id @default(cuid())
+  sellerId        String
+  seller          User     @relation(fields: [sellerId], references: [id])
+  amountCentimes  Int
+  note            String?
+  paidAt          DateTime?
+  createdAt       DateTime @default(now())
+}

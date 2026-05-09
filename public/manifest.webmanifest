@@ -1,0 +1,21 @@
+{
+  "name": "Souqami — سوقمي",
+  "short_name": "Souqami",
+  "description": "Algeria's marketplace for digital products. Pay in DZD with CIB, Edahabia, BaridiMob or CCP.",
+  "start_url": "/ar",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fafaf9",
+  "theme_color": "#1faa5b",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

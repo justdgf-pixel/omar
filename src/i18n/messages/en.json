@@ -1,0 +1,117 @@
+{
+  "brand": {
+    "name": "Souqami",
+    "tagline": "Algeria's digital products marketplace"
+  },
+  "nav": {
+    "home": "Home",
+    "browse": "Browse",
+    "categories": "Categories",
+    "sell": "Sell",
+    "cart": "Cart",
+    "login": "Sign in",
+    "register": "Sign up",
+    "logout": "Sign out",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "myDownloads": "My downloads"
+  },
+  "home": {
+    "heroTitle": "Buy and sell digital products in Algerian Dinar",
+    "heroSubtitle": "E-books, courses, designs, templates, music, software — pay with CIB, Edahabia, BaridiMob or CCP transfer.",
+    "ctaBrowse": "Start shopping",
+    "ctaSell": "Start selling",
+    "featured": "Featured products",
+    "categories": "Categories",
+    "whyTitle": "Why Souqami?",
+    "why1Title": "100% Algerian payments",
+    "why1Body": "Pay with CIB, Edahabia, BaridiMob or CCP transfer — no international card required.",
+    "why2Title": "Instant delivery",
+    "why2Body": "As soon as payment is confirmed, receive secure, time-limited download links.",
+    "why3Title": "Built for Algerian creators",
+    "why3Body": "Upload your product in minutes and receive payouts directly on your bank or CCP account."
+  },
+  "product": {
+    "buyNow": "Buy now",
+    "addToCart": "Add to cart",
+    "by": "by",
+    "details": "Details",
+    "fileSize": "File size",
+    "category": "Category"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "remove": "Remove"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "method": "Payment method",
+    "cib": "CIB card",
+    "edahabia": "Edahabia card",
+    "baridimob": "BaridiMob",
+    "ccp": "CCP / bank transfer",
+    "instructions": "Instructions",
+    "ccpInstructions": "Send the amount to the account below, then upload your receipt. Orders are confirmed manually during business hours.",
+    "baridimobInstructions": "Send the amount via BaridiMob to the number below and include the order reference in the memo.",
+    "satimNote": "You will be redirected to the secure SATIM gateway to complete your payment.",
+    "uploadProof": "Upload proof",
+    "submitOrder": "Place order",
+    "orderRef": "Reference",
+    "beneficiary": "Beneficiary",
+    "ccp": "CCP account",
+    "rib": "RIB",
+    "phone": "Phone"
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "registerTitle": "Create an account",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "wilaya": "Wilaya",
+    "phone": "Phone",
+    "submit": "Continue",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?"
+  },
+  "seller": {
+    "title": "Seller dashboard",
+    "newProduct": "New product",
+    "myProducts": "My products",
+    "productTitle": "Title",
+    "price": "Price (DZD)",
+    "category": "Category",
+    "description": "Description",
+    "uploadFile": "Upload digital file",
+    "publish": "Publish",
+    "draft": "Save as draft",
+    "sales": "Sales",
+    "earnings": "Earnings"
+  },
+  "admin": {
+    "title": "Admin",
+    "pendingOrders": "Pending orders",
+    "approve": "Approve payment",
+    "reject": "Reject",
+    "products": "Products",
+    "users": "Users"
+  },
+  "common": {
+    "price": "Price",
+    "currency": "DZD",
+    "search": "Search products...",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "footer": {
+    "tagline": "Made with love in Algeria 🇩🇿",
+    "rights": "All rights reserved"
+  }
+}

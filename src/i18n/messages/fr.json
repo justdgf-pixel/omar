@@ -1,0 +1,117 @@
+{
+  "brand": {
+    "name": "Souqami",
+    "tagline": "La marketplace de produits numériques en Algérie"
+  },
+  "nav": {
+    "home": "Accueil",
+    "browse": "Parcourir",
+    "categories": "Catégories",
+    "sell": "Vendre",
+    "cart": "Panier",
+    "login": "Connexion",
+    "register": "Inscription",
+    "logout": "Déconnexion",
+    "dashboard": "Tableau de bord",
+    "admin": "Administration",
+    "myDownloads": "Mes téléchargements"
+  },
+  "home": {
+    "heroTitle": "Achetez et vendez des produits numériques en Dinar algérien",
+    "heroSubtitle": "E-books, cours, designs, templates, musique, logiciels — payez avec CIB, Edahabia, BaridiMob ou CCP.",
+    "ctaBrowse": "Commencer à acheter",
+    "ctaSell": "Commencer à vendre",
+    "featured": "Produits en vedette",
+    "categories": "Catégories",
+    "whyTitle": "Pourquoi Souqami ?",
+    "why1Title": "Paiements 100% algériens",
+    "why1Body": "Carte CIB, Edahabia, BaridiMob ou virement CCP. Pas besoin de carte internationale.",
+    "why2Title": "Livraison instantanée",
+    "why2Body": "Dès la confirmation du paiement, recevez des liens de téléchargement sécurisés et limités dans le temps.",
+    "why3Title": "Pour les créateurs algériens",
+    "why3Body": "Mettez en ligne votre produit en quelques minutes et recevez vos paiements directement sur votre CCP ou compte bancaire."
+  },
+  "product": {
+    "buyNow": "Acheter",
+    "addToCart": "Ajouter au panier",
+    "by": "par",
+    "details": "Détails",
+    "fileSize": "Taille du fichier",
+    "category": "Catégorie"
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "subtotal": "Sous-total",
+    "checkout": "Passer à la caisse",
+    "remove": "Retirer"
+  },
+  "checkout": {
+    "title": "Paiement",
+    "method": "Mode de paiement",
+    "cib": "Carte CIB",
+    "edahabia": "Carte Edahabia",
+    "baridimob": "BaridiMob",
+    "ccp": "Virement CCP / bancaire",
+    "instructions": "Instructions",
+    "ccpInstructions": "Effectuez le virement vers le compte ci-dessous puis téléversez le justificatif. La commande sera validée manuellement aux heures ouvrables.",
+    "baridimobInstructions": "Envoyez le montant via BaridiMob au numéro ci-dessous en indiquant la référence de commande dans le motif.",
+    "satimNote": "Vous serez redirigé vers la page sécurisée SATIM pour finaliser le paiement.",
+    "uploadProof": "Téléverser le justificatif",
+    "submitOrder": "Confirmer la commande",
+    "orderRef": "Référence",
+    "beneficiary": "Bénéficiaire",
+    "ccp": "Compte CCP",
+    "rib": "RIB",
+    "phone": "Téléphone"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "registerTitle": "Créer un compte",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "name": "Nom",
+    "wilaya": "Wilaya",
+    "phone": "Téléphone",
+    "submit": "Continuer",
+    "haveAccount": "Déjà un compte ?",
+    "noAccount": "Pas encore de compte ?"
+  },
+  "seller": {
+    "title": "Espace vendeur",
+    "newProduct": "Ajouter un produit",
+    "myProducts": "Mes produits",
+    "productTitle": "Titre",
+    "price": "Prix (DZD)",
+    "category": "Catégorie",
+    "description": "Description",
+    "uploadFile": "Téléverser le fichier",
+    "publish": "Publier",
+    "draft": "Enregistrer en brouillon",
+    "sales": "Ventes",
+    "earnings": "Revenus"
+  },
+  "admin": {
+    "title": "Administration",
+    "pendingOrders": "Commandes à vérifier",
+    "approve": "Valider le paiement",
+    "reject": "Rejeter",
+    "products": "Produits",
+    "users": "Utilisateurs"
+  },
+  "common": {
+    "price": "Prix",
+    "currency": "DA",
+    "search": "Rechercher un produit...",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "footer": {
+    "tagline": "Fait avec ❤️ en Algérie 🇩🇿",
+    "rights": "Tous droits réservés"
+  }
+}
