@@ -1,0 +1,148 @@
+// Souk Digital DZ — Prisma schema
+// SQLite for easy local dev; switch `provider` to "postgresql" for prod.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Users & roles ---------------------------------------------------
+// Note: SQLite has no enums. We use string fields with validated values.
+// Roles: "BUYER" | "SELLER" | "ADMIN"
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("BUYER")
+  locale       String   @default("fr") // "ar" | "fr" | "en"
+  phone        String?
+  wilaya       String?  // Algerian province
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // If the user is also a seller:
+  sellerProfile SellerProfile?
+
+  orders     Order[]
+  downloads  Download[]
+}
+
+model SellerProfile {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  storeName   String
+  storeSlug   String   @unique
+  bio         String?
+  ccpAccount  String?  // Where seller wants to receive payouts
+  rib         String?
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  products    Product[]
+}
+
+// ---------- Catalog ---------------------------------------------------------
+
+model Category {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  nameAr    String
+  nameFr    String
+  nameEn    String
+  icon      String?  // emoji or short label
+  products  Product[]
+}
+
+model Product {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  // Multilingual fields
+  titleAr      String
+  titleFr      String
+  titleEn      String
+  descAr       String
+  descFr       String
+  descEn       String
+  // Pricing in DZD (stored as integer minor units = centimes)
+  priceDzd     Int      // e.g. 1500 for 15.00 DA — but DA has no centimes commonly used,
+                        // so we treat priceDzd as whole DZD. Keep an Int.
+  compareAtDzd Int?
+  // Files
+  coverImage   String?  // /uploads/<file>
+  fileKey      String?  // path on disk for the digital deliverable
+  fileName     String?  // original file name
+  fileSize     Int?     // bytes
+  // Meta
+  status       String   @default("DRAFT") // DRAFT | PUBLISHED | ARCHIVED
+  featured     Boolean  @default(false)
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  sellerId     String
+  seller       SellerProfile @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orderItems   OrderItem[]
+  downloads    Download[]
+}
+
+// ---------- Orders & payments ----------------------------------------------
+// OrderStatus values:
+//   "PENDING_PAYMENT" | "AWAITING_REVIEW" | "PAID" | "REJECTED" | "CANCELLED"
+// PaymentMethod values:
+//   "CIB_EDAHABIA" | "BARIDIMOB" | "CCP_TRANSFER" | "RIB_BANK_TRANSFER"
+
+model Order {
+  id          String        @id @default(cuid())
+  number      String        @unique // human-readable, e.g. SDZ-2026-000123
+  buyerId     String
+  buyer       User          @relation(fields: [buyerId], references: [id])
+  totalDzd    Int
+  status      String        @default("PENDING_PAYMENT")
+  method      String
+  // For manual methods, buyer uploads a proof:
+  proofImage  String?
+  proofRef    String?       // transaction ref / deposit slip number
+  buyerNote   String?
+  adminNote   String?
+  createdAt   DateTime      @default(now())
+  paidAt      DateTime?
+  rejectedAt  DateTime?
+
+  items       OrderItem[]
+  downloads   Download[]
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  // Snapshot at purchase time
+  titleSnapshot String
+  priceDzd      Int
+  qty           Int    @default(1)
+}
+
+model Download {
+  id           String   @id @default(cuid())
+  orderId      String
+  order        Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id])
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  token        String   @unique // signed token used in /api/download/[token]
+  expiresAt    DateTime
+  count        Int      @default(0)
+  maxCount     Int      @default(10)
+  createdAt    DateTime @default(now())
+}
