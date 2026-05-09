@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RakamDZ - منصة المنتجات الرقمية في الجزائر
 
-## Getting Started
+منصة متكاملة لبيع وشراء المنتجات الرقمية في الجزائر، تدعم طرق الدفع المحلية.
 
-First, run the development server:
+## المميزات
+
+- متجر منتجات رقمية كامل (برمجيات، قوالب، دورات، موسيقى...)
+- دعم طرق الدفع الجزائرية: CIB، BaridiMob، BaridiPay، الذهبية
+- نظام حسابات مستخدمين (تسجيل دخول، اشتراك)
+- سلة تسوق ذكية مع حفظ البيانات محلياً
+- عملية شراء سهلة مع رفع إيصال الدفع
+- روابط تحميل آمنة للمنتجات الرقمية
+- لوحة تحكم للمدير: إدارة المنتجات والطلبات
+- واجهة بالعربية مع اتجاه RTL
+
+## تقنيات المشروع
+
+- **Next.js 16** (App Router) + TypeScript
+- **Tailwind CSS** للتصميم
+- **Prisma 7** + SQLite للقاعدة البيانات
+- **NextAuth v5** لإدارة المصادقة
+- **better-sqlite3** adapter لـ Prisma
+
+## تشغيل المشروع محلياً
 
 ```bash
+# تثبيت الحزم
+npm install
+
+# تهيئة قاعدة البيانات
+npx prisma migrate dev
+
+# تشغيل خادم التطوير
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ثم قم بتهيئة البيانات الأولية:
+```
+POST http://localhost:3000/api/seed
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**بيانات الدخول للمدير:**
+- البريد: `admin@rakamdz.dz`
+- كلمة المرور: `admin123456`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## متغيرات البيئة
 
-## Learn More
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET="your-secret-key"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
-To learn more about Next.js, take a look at the following resources:
+## الصفحات الرئيسية
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| الصفحة | الرابط |
+|--------|--------|
+| الرئيسية | `/` |
+| المنتجات | `/products` |
+| تفاصيل منتج | `/products/[slug]` |
+| سلة التسوق | `/cart` |
+| إتمام الشراء | `/checkout` |
+| حسابي | `/account` |
+| طلباتي | `/account/orders` |
+| لوحة التحكم | `/admin` |
+| إدارة المنتجات | `/admin/products` |
+| إدارة الطلبات | `/admin/orders` |
