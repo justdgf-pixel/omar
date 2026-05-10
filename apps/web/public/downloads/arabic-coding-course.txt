@@ -1,0 +1,11 @@
+Arabic Coding Course - Demo Asset
+
+This file represents the starter delivery step for a paid course.
+
+In production, replace this with:
+- lesson access links
+- course invite details
+- a signed download URL
+- or onboarding instructions generated after payment confirmation
+
+Product: Arabic Coding Course

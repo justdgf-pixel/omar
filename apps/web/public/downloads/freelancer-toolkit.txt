@@ -1,0 +1,11 @@
+Freelancer Toolkit - Demo Asset
+
+This is a sample delivery file for the DigiSouk DZ starter.
+
+Replace this file with:
+- your real templates
+- a zip archive
+- a PDF bundle
+- or a generated customer-specific download
+
+Product: Freelancer Toolkit

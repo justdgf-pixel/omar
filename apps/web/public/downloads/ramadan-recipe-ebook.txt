@@ -1,0 +1,11 @@
+Ramadan Recipe Ebook - Demo Asset
+
+This sample file shows where a customer download would be exposed.
+
+Replace it with:
+- your ebook PDF
+- recipe printables
+- a ZIP file
+- or a secure object storage link
+
+Product: Ramadan Recipe Ebook

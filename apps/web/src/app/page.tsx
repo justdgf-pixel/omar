@@ -1,54 +1,12 @@
-const products = [
-  {
-    title: "Ramadan recipe ebook",
-    category: "Ebooks",
-    price: "2,500 DZD",
-    description:
-      "Sell downloadable guides, premium PDFs, and printable packs with instant delivery after confirmation.",
-  },
-  {
-    title: "Canva business pack",
-    category: "Templates",
-    price: "4,800 DZD",
-    description:
-      "Bundle social media templates, brand kits, invoices, and proposals for Algerian freelancers and agencies.",
-  },
-  {
-    title: "Arabic coding course",
-    category: "Courses",
-    price: "12,000 DZD",
-    description:
-      "Offer paid videos, source files, and community access to students who prefer mobile-first learning.",
-  },
-];
-
-const paymentRails = [
-  {
-    title: "CIB cards",
-    body: "For banked customers using SATIM-backed online card payments.",
-  },
-  {
-    title: "Edahabia",
-    body: "A core local payment method for broad reach through Algerie Poste.",
-  },
-  {
-    title: "BaridiMob confirmation",
-    body: "Useful for trust-building, reminders, and post-payment support flows.",
-  },
-];
-
-const launchSteps = [
-  "Register your activity, merchant account, and e-commerce paperwork before going live.",
-  "Connect an approved gateway such as Chargily, SofizPay, or another local processor once the account is approved.",
-  "Automate digital delivery by product type: file download, course access, license key, or invite link.",
-];
-
-const trustPoints = [
-  "Instant access after payment confirmation",
-  "Arabic/French-friendly product pages",
-  "Mobile-first checkout with WhatsApp support fallback",
-  "Ready to extend into seller dashboards, coupons, and analytics",
-];
+import Link from "next/link";
+import {
+  faqItems,
+  formatPrice,
+  launchSteps,
+  paymentRails,
+  products,
+  trustPoints,
+} from "@/data/catalog";
 
 export default function Home() {
   return (
@@ -59,7 +17,7 @@ export default function Home() {
             DigiSouk DZ
           </p>
           <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Sell digital products in Algeria with local-first UX
+            Sell digital products in Algeria with a working web flow
           </h1>
         </div>
         <div className="flex flex-wrap gap-3 text-sm font-medium">
@@ -67,37 +25,35 @@ export default function Home() {
             href="#catalog"
             className="rounded-full border border-slate-200 bg-white px-5 py-3 text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700"
           >
-            Explore catalog
+            Explore products
           </a>
-          <a
-            href="#launch"
+          <Link
+            href="/admin/orders"
             className="rounded-full bg-slate-950 px-5 py-3 text-white transition hover:bg-emerald-700"
           >
-            Launch checklist
-          </a>
+            Demo ops board
+          </Link>
         </div>
       </header>
 
       <section className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
         <div className="rounded-[2rem] border border-emerald-100 bg-slate-950 p-8 text-white shadow-[0_30px_80px_rgba(15,23,32,0.16)] sm:p-10">
           <span className="inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-200">
-            Algeria-ready digital commerce starter
+            Catalog, checkout, orders, and downloads
           </span>
           <h2 className="mt-6 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
-            Launch a storefront for ebooks, design packs, courses, and private
-            downloads.
+            Move from a landing page to an actual digital product selling flow.
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            This MVP combines a landing site, product catalog, and checkout
-            experience designed around how Algerian buyers discover, trust, and
-            pay for digital goods.
+            Buyers can now browse products, open product pages, go through a demo
+            checkout, create an order, and unlock a token-based delivery page.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
-              { value: "3", label: "Core product formats" },
-              { value: "2", label: "Channels included" },
-              { value: "100%", label: "Mobile-first layout" },
+              { value: `${products.length}`, label: "Live product pages" },
+              { value: "2", label: "API endpoints" },
+              { value: "1", label: "Starter order store" },
             ].map((item) => (
               <div
                 key={item.label}
@@ -111,69 +67,57 @@ export default function Home() {
 
           <div className="mt-8 flex flex-wrap gap-3 text-sm font-medium">
             <a
-              href="#payments"
+              href="#catalog"
               className="rounded-full bg-white px-5 py-3 text-slate-950 transition hover:bg-emerald-100"
             >
-              View payment strategy
+              Browse offers
             </a>
             <a
-              href="#mobile"
+              href="#payments"
               className="rounded-full border border-white/20 px-5 py-3 text-white transition hover:border-emerald-400 hover:text-emerald-200"
             >
-              Match the mobile app
+              View payment strategy
             </a>
           </div>
         </div>
 
         <aside className="rounded-[2rem] border border-white/70 bg-white p-6 shadow-[0_12px_50px_rgba(15,23,32,0.08)]">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-            Checkout preview
+            Starter backend
           </p>
           <div className="mt-5 rounded-[1.5rem] bg-slate-950 p-5 text-white">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm text-slate-400">Selected product</p>
+                <p className="text-sm text-slate-400">APIs available</p>
                 <h3 className="mt-1 text-xl font-semibold">
-                  Freelancer starter bundle
+                  /api/products and /api/orders
                 </h3>
               </div>
               <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-sm font-medium text-emerald-200">
-                6,900 DZD
+                JSON
               </span>
             </div>
 
             <ul className="mt-5 space-y-3 text-sm text-slate-300">
               <li className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                20 editable Canva templates
+                Local order persistence for demo purposes
               </li>
               <li className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                Arabic + French invoice pack
+                Token-based download access after order creation
               </li>
               <li className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                Download link unlocked after payment confirmation
+                Admin page to inspect recent orders
               </li>
             </ul>
-
-            <div className="mt-5 grid gap-3">
-              {paymentRails.map((payment) => (
-                <div
-                  key={payment.title}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-3"
-                >
-                  <p className="font-medium">{payment.title}</p>
-                  <p className="mt-1 text-sm text-slate-400">{payment.body}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="mt-5 rounded-[1.5rem] border border-emerald-100 bg-emerald-50 p-5">
             <p className="text-sm font-semibold text-emerald-800">
-              Best next backend step
+              Replace before production
             </p>
             <p className="mt-2 text-sm leading-7 text-emerald-950/80">
-              Add a real products table, order records, download tokens, and a
-              payment webhook once your local gateway account is approved.
+              Swap the local JSON store for a database and unlock delivery only
+              after a real gateway callback from CIB or Edahabia processing.
             </p>
           </div>
         </aside>
@@ -186,22 +130,22 @@ export default function Home() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-              Starter catalog
+              Live storefront
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight">
-              Digital offers that fit the local market
+              Product pages you can actually click through
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-slate-600">
-            Start with low-friction products that can be delivered instantly,
-            then expand into subscriptions, memberships, and creator bundles.
+            Each product now has its own page and checkout path so you can extend
+            the store into a real digital commerce app instead of a static mockup.
           </p>
         </div>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           {products.map((product) => (
             <article
-              key={product.title}
+              key={product.slug}
               className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-6"
             >
               <p className="text-sm font-medium text-emerald-700">
@@ -209,15 +153,29 @@ export default function Home() {
               </p>
               <h3 className="mt-3 text-2xl font-semibold">{product.title}</h3>
               <p className="mt-2 text-sm leading-7 text-slate-600">
-                {product.description}
+                {product.shortDescription}
               </p>
               <div className="mt-6 flex items-center justify-between">
                 <span className="text-xl font-semibold text-slate-950">
-                  {product.price}
+                  {formatPrice(product.priceDzd)}
                 </span>
                 <span className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-medium text-emerald-800">
-                  Instant delivery
+                  {product.deliveryLabel}
                 </span>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="rounded-full bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                >
+                  View product
+                </Link>
+                <Link
+                  href={`/checkout/${product.slug}`}
+                  className="rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-emerald-500 hover:text-emerald-700"
+                >
+                  Checkout
+                </Link>
               </div>
             </article>
           ))}
@@ -264,30 +222,21 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="mt-6 text-sm leading-7 text-slate-600">
-            For production, connect an approved gateway and validate legal/tax
-            requirements for your activity, invoices, VAT handling, and digital
-            delivery records before processing real orders.
-          </p>
         </div>
       </section>
 
-      <section
-        id="launch"
-        className="mt-12 rounded-[2rem] border border-slate-900 bg-slate-950 p-8 text-white shadow-[0_30px_80px_rgba(15,23,32,0.16)]"
-      >
+      <section className="mt-12 rounded-[2rem] border border-slate-900 bg-slate-950 p-8 text-white shadow-[0_30px_80px_rgba(15,23,32,0.16)]">
         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
               Launch plan
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-              What to build next after this starter
+              What to replace next for production
             </h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">
-              This repository gives you the positioning, product pages, and app
-              concept. The next engineering layer is backend automation and real
-              payments.
+              The UI and order flow are wired. The next step is to swap demo
+              persistence and simulated payment completion for real services.
             </p>
           </div>
           <div className="grid gap-4">
@@ -306,23 +255,50 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="mobile"
-        className="mt-12 mb-8 rounded-[2rem] border border-white/70 bg-white/75 p-8 shadow-[0_12px_50px_rgba(15,23,32,0.06)]"
-      >
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-              Mobile companion
-            </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight">
-              The app mirrors the same catalog and purchase story
-            </h2>
-          </div>
-          <p className="max-w-xl text-sm leading-7 text-slate-600">
-            The Expo app included in this repo is a clean starting point for a
-            buyer mobile experience, catalog browsing, and later account access.
+      <section className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="rounded-[2rem] border border-white/70 bg-white p-8 shadow-[0_12px_50px_rgba(15,23,32,0.06)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+            FAQ
           </p>
+          <div className="mt-6 grid gap-4">
+            {faqItems.map((item) => (
+              <div
+                key={item.question}
+                className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5"
+              >
+                <h3 className="text-lg font-semibold text-slate-950">
+                  {item.question}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  {item.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-[2rem] border border-white/70 bg-white p-8 shadow-[0_12px_50px_rgba(15,23,32,0.06)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
+            Mobile companion
+          </p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight">
+            The Expo app now mirrors this richer catalog direction
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            It remains a starter, but it now reflects the same products and
+            delivery story so you can continue into a real customer app.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-800">
+              Catalog cards
+            </span>
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-800">
+              Payment priorities
+            </span>
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-800">
+              Delivery roadmap
+            </span>
+          </div>
         </div>
       </section>
     </main>
